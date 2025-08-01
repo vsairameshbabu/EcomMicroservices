@@ -2,8 +2,7 @@ package com.app.ecom.controller;
 
 import com.app.ecom.dto.ProductRequest;
 import com.app.ecom.dto.ProductResponse;
-import com.app.ecom.model.Product;
-import com.app.ecom.servie.ProductService;
+import com.app.ecom.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,5 +49,10 @@ public class ProductContrller {
             return new ResponseEntity<>("Product deleted successfully", HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductResponse>> searchProducts(@RequestParam String keyword) {
+        return new ResponseEntity<>(productService.searchProducts(keyword), HttpStatus.OK);
     }
 }

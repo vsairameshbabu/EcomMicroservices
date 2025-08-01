@@ -1,4 +1,4 @@
-package com.app.ecom.servie;
+package com.app.ecom.service;
 
 import com.app.ecom.dto.ProductRequest;
 import com.app.ecom.dto.ProductResponse;
@@ -43,11 +43,17 @@ public class ProductService {
     }
 
     public boolean deleteProduct(Long id) {
-        if (productRepository.existsById(id)) {
-            productRepository.deleteById(id);
+        return productRepository.findById(id).map(product -> {
+            product.setActive(false);
+            productRepository.save(product);
             return true;
-        }
-        return false;
+        }).orElse(false);
+    }
+
+    public List<ProductResponse> searchProducts(String keyword) {
+        return productRepository.searchProducts(keyword).stream()
+                .map(this::mapToProductResponse)
+                .collect(Collectors.toList());
     }
 
     private void updateProductFromRequest(ProductRequest productRequest, Product product) {

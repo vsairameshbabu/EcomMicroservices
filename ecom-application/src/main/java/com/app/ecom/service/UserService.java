@@ -1,4 +1,4 @@
-package com.app.ecom.servie;
+package com.app.ecom.service;
 
 import com.app.ecom.dto.AddressDTO;
 import com.app.ecom.dto.UserRequest;
