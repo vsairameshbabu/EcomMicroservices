@@ -70,4 +70,9 @@ public class CartItemService {
                 .map(cartItemRepository::findByUser)
                 .orElseGet(List::of);
     }
+
+    public void clearCart(String userId) {
+        userRepository.findById(Long.parseLong(userId))
+                .ifPresent(cartItemRepository::deleteByUser);
+    }
 }
